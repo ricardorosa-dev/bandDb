@@ -25,11 +25,3 @@ CREATE TABLE website (
 	url VARCHAR(100) NOT NULL, 
 	visits_Per_Month INTEGER,
 	online_Store BOOLEAN);
-
---CREATE TABLE errors_table (
---	id INTEGER PRIMARY KEY, 
---	level VARCHAR(100) NOT NULL, 
---	description VARCHAR(255) NOT NULL, 
---	log VARCHAR(500) NOT NULL, 
---	origin VARCHAR(100) NOT NULL,
---	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);

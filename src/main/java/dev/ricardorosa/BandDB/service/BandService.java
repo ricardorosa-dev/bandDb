@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 
 import dev.ricardorosa.BandDB.entity.Album;
 import dev.ricardorosa.BandDB.entity.Band;
-import dev.ricardorosa.BandDB.exceptions.AlreadyExistsException;
-import dev.ricardorosa.BandDB.exceptions.IncompleteBodyException;
-import dev.ricardorosa.BandDB.exceptions.NotFoundException;
 import dev.ricardorosa.BandDB.repository.AlbumRepository;
 import dev.ricardorosa.BandDB.repository.BandRepository;
 
@@ -29,33 +26,16 @@ public class BandService {
 	
 	public Band findById(Long id) {
 		return repository.findById(id)
-				.orElseThrow(() -> new NotFoundException("band", id));
+				.orElseThrow(RuntimeException::new);
 	}
 	
 	public Band save(Band newBand) {
-		if (newBand.getName() == null
-			|| newBand.getGenre() == null
-			|| newBand.getYear() == 0) {
-			throw new IncompleteBodyException("band", "'name', 'genre' and 'year'");
-		}
-		
-		Band exists = repository.findByName(newBand.getName());
-		if (exists != null) {
-			throw new AlreadyExistsException("band", "name", exists.getName());
-		}
-		
 		return repository.save(newBand);
 	}
 	
 	public Band update(Long id, Band updateBand) {
-		if (updateBand.getName() == null
-			|| updateBand.getGenre() == null
-			|| updateBand.getYear() == 0) {
-			throw new IncompleteBodyException("band", "'name', 'genre' and 'year'");
-		}
-		
 		Band foundBand = repository.findById(id)
-				.orElseThrow(() -> new NotFoundException("band", id));
+				.orElseThrow(RuntimeException::new);
 		foundBand.setName(updateBand.getName());
 		foundBand.setGenre(updateBand.getGenre());
 		foundBand.setYear(updateBand.getYear());
@@ -65,7 +45,7 @@ public class BandService {
 	
 	public void delete(Long id) {
 		Band foundBand = repository.findById(id)
-				.orElseThrow(() -> new NotFoundException("band", id));
+				.orElseThrow(RuntimeException::new);
 		
 		repository.delete(foundBand);
 	}

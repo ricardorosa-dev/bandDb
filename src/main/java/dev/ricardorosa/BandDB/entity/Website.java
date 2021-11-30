@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,5 +27,12 @@ public class Website {
 	private int visitsPerMonth;
 	@Column(name = "online_store")
 	private boolean onlineStore;
+	
+	@OneToOne
+	@JoinColumn(
+			name = "band_id",
+			referencedColumnName = "id"
+	)
+	private Band band;
 
 }
