@@ -1,6 +1,5 @@
 package dev.ricardorosa.BandDB.service;
 
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +40,7 @@ public class MusicianService {
 			throw new AlreadyExistsException("musician", "name", exists.getName());
 		}
 		
-		try {
-			return repository.save(newMusician);
-		} catch (DateTimeParseException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		return null;
+		return repository.save(newMusician);
 	}
 	
 	public Musician update(Long id, Musician updateMusician) {
